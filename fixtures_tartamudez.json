@@ -1,0 +1,104 @@
+[
+  {
+    "model": "blog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Evaluación y diagnóstico",
+      "description": "Cómo se evalúa la tartamudez, señales de alerta, derivación.",
+      "created_at": "2025-10-18T18:25:36.979374"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Terapias y técnicas",
+      "description": "Intervenciones basadas en evidencia para la tartamudez.",
+      "created_at": "2025-10-18T18:25:36.979374"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Recursos y apoyo",
+      "description": "Guías para familias, educadores y pacientes; comunidades, apps y lecturas.",
+      "created_at": "2025-10-18T18:25:36.979374"
+    }
+  },
+  {
+    "model": "blog.author",
+    "pk": 1,
+    "fields": {
+      "name": "Lic. Martina Pérez (Fonoaudióloga)",
+      "email": "martina@example.com",
+      "bio": "Fonoaudióloga, especialista en fluidez y tartamudez infantil y adulta.",
+      "created_at": "2025-10-18T18:25:36.979374"
+    }
+  },
+  {
+    "model": "blog.author",
+    "pk": 2,
+    "fields": {
+      "name": "Lic. Diego Salas (Psicología)",
+      "email": "diego@example.com",
+      "bio": "Psicólogo clínico. Interés en ansiedad social y comunicación.",
+      "created_at": "2025-10-18T18:25:36.979374"
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 1,
+    "fields": {
+      "title": "Tartamudez: qué es y qué no es",
+      "content": "La tartamudez (también llamada disfemia) es un trastorno de la fluidez del habla que se caracteriza por repeticiones, prolongaciones o bloqueos. \nNo es falta de inteligencia ni “nervios” solamente. \n✔ Señales de alerta en niñeces: repeticiones frecuentes, tensión al hablar, evitación de palabras, frustración.\n✔ Cuándo consultar: si los síntomas duran más de 3–6 meses, si hay tensión/esfuerzo, o preocupación familiar.",
+      "category": 1,
+      "author": 1,
+      "created_at": "2025-10-18T18:25:36.979374"
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 2,
+    "fields": {
+      "title": "Técnicas de modelado de fluidez: ralentización y pausado",
+      "content": "Estrategias basadas en evidencia incluyen: ralentizar el ritmo (habla más lenta y suave), respiración diafragmática y pausas planificadas. \nObjetivo: reducir la presión temporal y aumentar el control del habla. \nTip: practicar con lecturas en voz alta y luego en conversación cotidiana, monitoreando comodidad más que “cero tartamudez”.",
+      "category": 2,
+      "author": 1,
+      "created_at": "2025-10-18T18:25:36.979374"
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 3,
+    "fields": {
+      "title": "Cómo acompañar a un niño que tartamudea en casa",
+      "content": "• Dar tiempo para responder sin completarle la frase. \n• Escuchar el contenido, no la forma. \n• Bajar el ritmo de preguntas, usar turnos conversacionales tranquilos. \n• Evitar consejos como “respirá” o “hablá despacio” en momentos de bloqueo; en su lugar, validar: “Te escucho, tomate tu tiempo”.",
+      "category": 3,
+      "author": 1,
+      "created_at": "2025-10-18T18:25:36.979374"
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 4,
+    "fields": {
+      "title": "Ansiedad y tartamudez: ¿qué papel juega?",
+      "content": "La ansiedad no causa por sí sola la tartamudez, pero puede incrementarla. \nEnfoques útiles: reestructuración cognitiva, exposición gradual a situaciones comunicativas y entrenamiento en habilidades sociales, coordinado con terapia fonoaudiológica.",
+      "category": 2,
+      "author": 2,
+      "created_at": "2025-10-18T18:25:36.979374"
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 5,
+    "fields": {
+      "title": "Guía de recursos: apps, lecturas y comunidades",
+      "content": "• Aplicaciones para practicar ritmo y pausas.\n• Lecturas: guías introductorias para familias y docentes.\n• Comunidades: grupos de apoyo locales y foros moderados.\nCriterio: priorizar recursos con respaldo de profesionales y evitar “curas milagrosas”.",
+      "category": 3,
+      "author": 1,
+      "created_at": "2025-10-18T18:25:36.979374"
+    }
+  }
+]
