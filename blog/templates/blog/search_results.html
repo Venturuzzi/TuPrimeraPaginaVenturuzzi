@@ -1,2 +1,27 @@
 {% extends "blog/base.html" %}
 {% block title %}Resultados | Tartamudez{% endblock %}
+{% block content %}
+<h2>Buscar</h2>
+<form method="get">
+  {{ form.q }}
+  <button type="submit">Buscar</button>
+</form>
+{% if query %}
+  <h3>Resultados para "{{ query }}":</h3>
+  {% if results %}
+    <ul class="list">
+      {% for post in results %}
+        <li>
+          <strong>{{ post.title }}</strong> — {{ post.author }} | {{ post.category }}
+          <div><small>{{ post.created_at }}</small></div>
+          <p>{{ post.content|truncatechars:200 }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No se encontraron resultados.</p>
+  {% endif %}
+{% else %}
+  <p>Ingresá un término de búsqueda.</p>
+{% endif %}
+{% endblock %}

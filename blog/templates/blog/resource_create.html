@@ -1,0 +1,13 @@
+{% extends "blog/base.html" %}
+{% block title %}Nuevo Documento | Tartamudez{% endblock %}
+{% block content %}
+<h2>Subir/Agregar Documento</h2>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Guardar</button>
+</form>
+<p style="margin-top:.5rem;">
+  <a href="{% url 'resource_list' %}">Volver a Documentos</a>
+</p>
+{% endblock %}
