@@ -10,9 +10,26 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container">
-        <a class="navbar-brand" href="/">Mi Sitio</a>
-        <div class="collapse navbar-collapse">
+        <a class="navbar-brand" href="/">Tartamudez Cordoba</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
+
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blogpages:page_list' %}">Publicaciones</a>
+                </li>
+
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blogpages:about' %}">Acerca de mí</a>
+                </li>
+
                 {% if request.user.is_authenticated %}
                     <li class="nav-item"><a class="nav-link" href="/accounts/profile/">Perfil</a></li>
                     <li class="nav-item"><a class="nav-link" href="/inbox/">Mensajes</a></li>
@@ -33,8 +50,9 @@
 
 <footer class="text-center mt-5 mb-3">
     <hr>
-    <p>Proyecto Django MVT - Franco Venturuzzi © 2025</p>
+    <p>Proyecto Django - Franco Venturuzzi © 2025</p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

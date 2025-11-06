@@ -1,11 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Editar perfil</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-primary">Guardar</button>
-</form>
-<a href="{% url 'useraccounts:profile' %}" class="btn btn-link">Cancelar</a>
+<div class="container mt-4">
+  <h2>Editar perfil</h2>
+  <hr>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label>Nombre</label>
+      {{ form.first_name }}
+    </div>
+    <div class="mb-3">
+      <label>Apellido</label>
+      {{ form.last_name }}
+    </div>
+    <div class="mb-3">
+      <label>Email</label>
+      {{ form.email }}
+    </div>
+    <div class="mb-3">
+      <label>Avatar</label>
+      {{ form.avatar }}
+    </div>
+    <div class="mb-3">
+      <label>Biografía</label>
+      {{ form.bio }}
+    </div>
+    <div class="mb-3">
+      <label>Link</label>
+      {{ form.link }}
+    </div>
+    <div class="mb-3">
+      <label>Fecha de nacimiento</label>
+      {{ form.birthday }}
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar cambios</button>
+    <a href="{% url 'useraccounts:profile' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
 {% endblock %}
-    
