@@ -1,10 +1,27 @@
 {% extends 'base.html' %}
+{% block title %}Registro - Tartamudez{% endblock %}
+
 {% block content %}
-<h2>Registro</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-success">Registrarse</button>
-</form>
-<p class="mt-2">¿Ya tenés cuenta? <a href="{% url 'useraccounts:login' %}">Entrar</a></p>
+<div class="container mt-5" style="max-width: 500px;">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="mb-4 text-center text-primary">Crear una cuenta</h2>
+
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="d-grid">
+          <button type="submit" class="btn btn-success mt-3">Registrarse</button>
+        </div>
+      </form>
+
+      <hr class="my-4">
+
+      <p class="text-center mb-0">
+        ¿Ya tenés cuenta?
+        <a href="{% url 'useraccounts:login' %}" class="text-decoration-none">Iniciar sesión</a>
+      </p>
+    </div>
+  </div>
+</div>
 {% endblock %}

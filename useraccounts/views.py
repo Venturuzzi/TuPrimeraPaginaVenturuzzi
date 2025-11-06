@@ -11,6 +11,9 @@ from .models import Profile
 
 # 🔹 Registro de nuevos usuarios
 def signup_view(request):
+    """
+    Permite a un nuevo usuario registrarse en el sitio y crea su perfil asociado.
+    """
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
@@ -19,32 +22,42 @@ def signup_view(request):
                 email=form.cleaned_data['email'],
                 password=form.cleaned_data['password']
             )
-            # Crear perfil vacío asociado
+            # Crear perfil asociado vacío
             Profile.objects.create(user=user)
             login(request, user)
+            messages.success(request, 'Registro exitoso. ¡Bienvenido!')
             return redirect('blogpages:page_list')
     else:
         form = SignupForm()
+
     return render(request, 'useraccounts/signup.html', {'form': form})
 
 
 # 🔹 Inicio de sesión
 def login_view(request):
+    """
+    Inicia sesión si las credenciales son correctas.
+    """
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        if user:
+        if user is not None:
             login(request, user)
+            messages.success(request, f'¡Bienvenido, {user.username}!')
             return redirect('blogpages:page_list')
         else:
-            return render(request, 'useraccounts/login.html', {'error': 'Credenciales incorrectas'})
+            messages.error(request, 'Credenciales incorrectas.')
     return render(request, 'useraccounts/login.html')
 
 
 # 🔹 Cierre de sesión
 def logout_view(request):
+    """
+    Cierra la sesión del usuario actual.
+    """
     logout(request)
+    messages.info(request, 'Sesión cerrada correctamente.')
     return redirect('useraccounts:login')
 
 
@@ -52,10 +65,11 @@ def logout_view(request):
 @login_required
 def profile_view(request):
     """
-    Muestra todos los datos del usuario y su perfil extendido.
+    Muestra los datos personales y del perfil extendido del usuario.
     """
     return render(request, 'useraccounts/profile.html', {
-        'profile': request.user.profile
+        'profile': request.user.profile,
+        'user': request.user,
     })
 
 
@@ -63,7 +77,7 @@ def profile_view(request):
 @login_required
 def profile_edit_view(request):
     """
-    Permite editar los datos del usuario y su perfil.
+    Permite al usuario editar su información y la del perfil asociado.
     """
     user = request.user
     profile = user.profile
@@ -71,15 +85,23 @@ def profile_edit_view(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
+            # Guardar campos del modelo Profile
             form.save()
-            user.first_name = request.POST.get('first_name', user.first_name)
-            user.last_name = request.POST.get('last_name', user.last_name)
-            user.email = request.POST.get('email', user.email)
+
+            # Actualizar campos del modelo User
+            user.first_name = form.cleaned_data.get('first_name', user.first_name)
+            user.last_name = form.cleaned_data.get('last_name', user.last_name)
+            user.email = form.cleaned_data.get('email', user.email)
             user.save()
+
             messages.success(request, 'Perfil actualizado correctamente.')
             return redirect('useraccounts:profile')
     else:
+        # Precargar datos actuales del usuario en el formulario
         form = ProfileForm(instance=profile)
+        form.fields['first_name'].initial = user.first_name
+        form.fields['last_name'].initial = user.last_name
+        form.fields['email'].initial = user.email
 
     return render(request, 'useraccounts/profile_edit.html', {'form': form})
 
@@ -87,7 +109,7 @@ def profile_edit_view(request):
 # 🔹 Cambio de contraseña
 class CustomPasswordChangeView(PasswordChangeView):
     """
-    Vista para cambiar la contraseña del usuario.
+    Vista para permitir el cambio de contraseña del usuario autenticado.
     """
     template_name = 'useraccounts/change_password.html'
     success_url = reverse_lazy('useraccounts:profile')
