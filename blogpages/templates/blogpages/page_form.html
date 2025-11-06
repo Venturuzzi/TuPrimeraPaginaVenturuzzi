@@ -1,0 +1,15 @@
+
+{% extends "base.html" %}
+{% block title %}{% if mode == 'edit' %}Editar{% else %}Crear{% endif %} página{% endblock %}
+{% block content %}
+  <h2>{% if mode == 'edit' %}Editar{% else %}Crear{% endif %} página</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">{{ form.title.label_tag }} {{ form.title }}</div>
+    <div class="row">{{ form.subtitle.label_tag }} {{ form.subtitle }}</div>
+    <div class="row">{{ form.content.label_tag }} {{ form.content }}</div>
+    <div class="row">{{ form.image.label_tag }} {{ form.image }}</div>
+    <button class="btn" type="submit">Guardar</button>
+    <a class="btn" href="{% url 'page_list' %}">Cancelar</a>
+  </form>
+{% endblock %}

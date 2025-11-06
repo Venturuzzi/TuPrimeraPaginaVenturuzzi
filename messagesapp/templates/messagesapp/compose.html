@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Nuevo mensaje{% endblock %}
+{% block content %}
+  <h2>Nuevo mensaje</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="row">{{ form.recipient.label_tag }} {{ form.recipient }}</div>
+    <div class="row">{{ form.body.label_tag }} {{ form.body }}</div>
+    <button class="btn" type="submit">Enviar</button>
+    <a class="btn" href="{% url 'inbox' %}">Cancelar</a>
+  </form>
+{% endblock %}

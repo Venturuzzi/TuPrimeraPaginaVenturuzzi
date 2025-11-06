@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Conversación con {{ other.username }}{% endblock %}
+{% block content %}
+  <h2>Conversación con {{ other.username }}</h2>
+  <p><a class="btn" href="{% url 'inbox' %}">Volver</a></p>
+  {% if messages_list %}
+    <ul class="clean">
+      {% for m in messages_list %}
+        <li class="card">
+          <strong>{{ m.sender.username }}</strong>
+          <span class="muted"> · {{ m.created_at|date:"d/m/Y H:i" }}</span>
+          <div style="margin-top:6px; white-space:pre-line;">{{ m.body }}</div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay mensajes aún.</p>
+  {% endif %}
+{% endblock %}

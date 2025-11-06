@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Bandeja de entrada</h2>
+<ul>
+  {% for msg in messages_list %}
+    <li>
+      <strong><a href="{% url 'messagesapp:thread' msg.id %}">{{ msg.subject }}</a></strong>
+      de {{ msg.sender.username }} — {{ msg.created_at|date:"d/m/Y H:i" }}
+      {% if not msg.is_read %}<span class="badge bg-primary">Nuevo</span>{% endif %}
+    </li>
+  {% empty %}
+    <p>No tenés mensajes.</p>
+  {% endfor %}
+</ul>
+<a href="{% url 'messagesapp:compose' %}" class="btn btn-success mt-3">Nuevo mensaje</a>
+{% endblock %}

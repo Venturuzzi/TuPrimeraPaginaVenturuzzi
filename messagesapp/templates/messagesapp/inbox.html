@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Bandeja de entrada{% endblock %}
+{% block content %}
+  <h2>Bandeja de entrada</h2>
+  <p><a class="btn" href="{% url 'compose' %}">Nuevo mensaje</a> <a class="btn" href="{% url 'sent' %}">Enviados</a></p>
+  {% if messages_list %}
+    <ul class="clean">
+      {% for m in messages_list %}
+        <li class="card">
+          <a href="{% url 'thread' m.sender.username %}"><strong>{{ m.sender.username }}</strong></a>
+          <div class="muted">{{ m.created_at|date:"d/m/Y H:i" }}</div>
+          <div>{{ m.body|truncatechars:140 }}</div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No tenés mensajes.</p>
+  {% endif %}
+{% endblock %}

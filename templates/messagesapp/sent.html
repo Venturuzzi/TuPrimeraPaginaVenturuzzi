@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Mensajes enviados</h2>
+<ul>
+  {% for msg in sent_messages %}
+    <li>
+      <strong><a href="{% url 'messagesapp:thread' msg.id %}">{{ msg.subject }}</a></strong>
+      para {{ msg.receiver.username }} — {{ msg.created_at|date:"d/m/Y H:i" }}
+    </li>
+  {% empty %}
+    <p>No has enviado ningún mensaje.</p>
+  {% endfor %}
+<a href="{% url 'messagesapp:compose' %}" class="btn btn-success mt-3">Nuevo mensaje</a>
+{% endblock %}

@@ -1,0 +1,29 @@
+
+{% extends "base.html" %}
+{% block title %}Páginas{% endblock %}
+{% block content %}
+  <h2>Páginas</h2>
+  <form method="get" class="row" style="display:flex; gap:8px; margin-bottom:16px;">
+    <input type="text" name="q" value="{{ q }}" placeholder="Buscar por título...">
+    <button class="btn" type="submit">Buscar</button>
+    {% if request.user.is_authenticated %}
+      <a class="btn" href="{% url 'page_create' %}">Nueva página</a>
+    {% endif %}
+  </form>
+
+  {% if pages %}
+    <ul class="clean">
+      {% for p in pages %}
+        <li class="card">
+          <h3 style="margin:0 0 6px 0;">
+            <a href="{% url 'page_detail' pk=p.pk %}">{{ p.title }}</a>
+          </h3>
+          {% if p.subtitle %}<div class="muted">{{ p.subtitle }}</div>{% endif %}
+          <div class="muted">Creado: {{ p.created_at|date:"d/m/Y H:i" }}{% if p.author %} · por {{ p.author.username }}{% endif %}</div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay páginas aún.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+
+{% extends "base.html" %}
+{% block title %}Eliminar página{% endblock %}
+{% block content %}
+  <h2>Eliminar página</h2>
+  <p>¿Seguro que querés eliminar <strong>{{ page.title }}</strong>?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn" type="submit">Sí, eliminar</button>
+    <a class="btn" href="{% url 'page_detail' pk=page.pk %}">No, volver</a>
+  </form>
+{% endblock %}
