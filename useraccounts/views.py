@@ -9,10 +9,10 @@ from .forms import SignupForm, ProfileForm
 from .models import Profile
 
 
-# 🔹 Registro de nuevos usuarios
+# 🔹 Registro de usuario nuevo
 def signup_view(request):
     """
-    Permite a un nuevo usuario registrarse en el sitio y crea su perfil asociado.
+    Permite a un nuevo usuario registrarse y crea su perfil asociado.
     """
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -22,8 +22,10 @@ def signup_view(request):
                 email=form.cleaned_data['email'],
                 password=form.cleaned_data['password']
             )
-            # Crear perfil asociado vacío
-            Profile.objects.create(user=user)
+
+            # Evita duplicados: crea el perfil solo si no existe
+            Profile.objects.get_or_create(user=user)
+
             login(request, user)
             messages.success(request, 'Registro exitoso. ¡Bienvenido!')
             return redirect('blogpages:page_list')
@@ -85,10 +87,9 @@ def profile_edit_view(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
-            # Guardar campos del modelo Profile
             form.save()
 
-            # Actualizar campos del modelo User
+            # Actualiza también los datos del usuario
             user.first_name = form.cleaned_data.get('first_name', user.first_name)
             user.last_name = form.cleaned_data.get('last_name', user.last_name)
             user.email = form.cleaned_data.get('email', user.email)
@@ -97,7 +98,6 @@ def profile_edit_view(request):
             messages.success(request, 'Perfil actualizado correctamente.')
             return redirect('useraccounts:profile')
     else:
-        # Precargar datos actuales del usuario en el formulario
         form = ProfileForm(instance=profile)
         form.fields['first_name'].initial = user.first_name
         form.fields['last_name'].initial = user.last_name
